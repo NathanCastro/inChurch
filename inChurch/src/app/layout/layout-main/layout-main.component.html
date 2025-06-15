@@ -1,1 +1,27 @@
-<p>layout-main works!</p>
+<div class="grid md:grid-cols-[80px_1fr] sm:grid-cols-[50px_1fr] min-h-screen">
+    <nav class="col-span-1 h-screen bg-gray-100 px-1">
+        <app-menu></app-menu>
+    </nav>
+    
+    <div class="col-start-2 flex flex-col min-h-screen">    
+        <header class="flex items-center p-6 sm:h-16 h-24 w-full shadow-2xl justify-center">
+            <app-header class="w-full"></app-header> 
+        </header>
+
+        <main class="flex-1 bg-blue overflow-auto ">
+            <div 
+                class="flex items-center rounded-md bg-white my-6 
+                shadow-2xl sm:h-16 h-24 w-full flex-wrap">
+                <app-event-filter class="w-full"></app-event-filter>
+            </div>
+            <div class="content">                
+                <!-- <app-cards></app-cards> -->
+                <app-table-list></app-table-list>
+            </div>
+        </main>
+        
+        <footer class="w-full bg-white flex gap-4 justify-center shadow-inner">
+            <app-footer></app-footer>
+        </footer>       
+    </div> 
+</div>

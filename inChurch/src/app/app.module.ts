@@ -19,7 +19,8 @@ import { LayoutMainComponent } from './layout/layout-main/layout-main.component'
     MatButtonModule,
     ComponentsModule,
     ContainerModule,
-    SharedModule
+    SharedModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

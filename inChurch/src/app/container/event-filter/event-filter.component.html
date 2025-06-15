@@ -1,0 +1,37 @@
+<div class="flex flex-wrap justify-around items-center">
+    <div class="sm:flex hidden gap-2 text-details hover:text-primary_light">
+        <mat-icon>event</mat-icon>
+        <h4>Evento</h4>
+    </div>
+    <div class="flex gap-2 my-1">
+        <input 
+            class="px-4 py-2 h-[42px]  border-2 border-details rounded 
+            focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"             
+            type="text"
+            placeholder="Pesquisar..."
+        >
+        <button
+            class="border-2 border-details rounded-md 
+                h-[42px] w-[42px] hover:border-primary_light hover:text-primary_light" 
+            matTooltip="Ver tabela e Cards"
+        >
+            <mat-icon class="my-2">grid_view</mat-icon>
+        </button>
+        <button
+            class="border-2 border-details 
+            rounded-md h-[42px] w-[42px] 
+            hover:border-primary_light hover:text-primary_light"
+            matTooltip="Ver tabela em lista"
+        >
+            <mat-icon class="my-2 ">list</mat-icon>
+        </button>
+    </div>
+
+    <div class="flex">
+        <button  class="bg-primary rounded-md 
+            hover:bg-primary_light text-white border-2 
+            border-details h-[42px] w-36">
+            Cadastrar
+        </button> 
+    </div>
+</div>
