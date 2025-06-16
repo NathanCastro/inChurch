@@ -1,12 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatorComponent } from './paginator';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PaginatorComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatPaginatorModule
+  ],
+  exports:[
+    PaginatorComponent
   ]
 })
 export class SharedModule { }

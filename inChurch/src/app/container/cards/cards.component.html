@@ -1,0 +1,62 @@
+<div class="grid grid-cols-1 
+  sm:grid-cols-2 md:grid-cols-4 
+  xl:grid-cols-5 gap-3 mx-3">
+  <div class="flex flex-col">
+    <mat-card class="example-card overflow-hidden">
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="foto do evento" />
+      
+      <div class="relative">
+        <p class="absolute 
+          bottom-1 left-2 
+          bg-details text-dark text-xs 
+          font-semibold px-3 py-1 rounded 
+          shadow-md">
+          Sem Ingresso
+        </p>
+      </div>
+
+      <mat-card-content class="mt-3">
+        <p class="title text-text_dark hover:text-primary 
+          cursor-pointer mb-4 text-base font-semibold"
+        >{{'Deus é tudo na minha vida, joão:2.17'}}
+        </p>
+        <p class="date text-primary font-semibold mt-2">Publicado em:</p>
+        <p class="hour text-details font-medium">{{'15/02/2021 às 19:02'}}</p>
+      </mat-card-content>
+      <mat-card-actions class="justify-center">
+        <button 
+          mat-button 
+          matTooltip="Visualizar"
+          class="hover:bg-primary_light">
+          <mat-icon 
+            class="hover:bg-primary_light 
+            text-details">
+            visibility
+          </mat-icon>
+        </button>
+        <button 
+          mat-button
+          matTooltip="Editar" 
+          class="hover:bg-primary_light">
+          <mat-icon class="hover:bg-primary_light 
+            text-details">
+            edit
+          </mat-icon>
+        </button>
+        <button 
+          mat-button
+          matTooltip="Apagar"
+          class="hover:bg-primary_light">
+          <mat-icon 
+            class="hover:bg-primary_light 
+            text-details">
+            delete
+          </mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  
+
+</div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { Login } from 'src/app/models/login';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ){}
 
   ngOnInit(): void{
@@ -21,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   makeLogin(){
 
-
+    let dadosLogin = this.loginForm.getRawValue() as Login
 
 
     // this.snackBar.open('funcionou', 'ok',{
