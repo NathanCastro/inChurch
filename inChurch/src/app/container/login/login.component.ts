@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Login } from 'src/app/models/login';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,21 +15,32 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ){}
 
   ngOnInit(): void{
     this.setForm();
   }
 
-  makeLogin(){
+  public makeLogin(){
+    if(this.loginForm.valid){
+      const { email, password } = this.loginForm.value;
+      const isAuthenticated = this.authService.login(email,password);
 
-    let dadosLogin = this.loginForm.getRawValue() as Login
+      if(isAuthenticated){
+        this.openSnackBar('Login feito com sucesso');
+        this.router.navigateByUrl("/home")
+      } else {
+        this.openSnackBar('Email ou senha estão errados')
+      }
+    }
+  }
 
-
-    // this.snackBar.open('funcionou', 'ok',{
-    //   duration: 3000,
-    // });
+  public openSnackBar(message: string, action: string = 'OK'){
+    this.snackBar.open(message, action, {
+      duration:3000
+    })
   }
 
   private setForm(): void{

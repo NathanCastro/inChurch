@@ -1,54 +1,60 @@
-<main class="w-full h-screen flex flex-col md:flex-row items-center justify-center">
-  <section class="w-full flex-1 flex flex-col items-center justify-center">
-    <form [formGroup]="loginForm"  
-      class="w-80 sm:w-96 max-w-xl flex flex-col items-center 
-      justify-center gap-4 p-4 shadow-lg shadow-zinc-400" 
-    >
-
-      <img src="../../../assets/inchurch-logo.svg">
-      <h2 class="text-4xl text-text_dark font-bold mb-7">Login</h2>
-
-      <input 
-        type="text" 
-        placeholder="Digite seu e-mail..." 
-        formControlName="email"
-        class="w-full p-2 
+<div class="h-full flex flex-col md:flex-row items-center justify-center">
+  <form [formGroup]="loginForm" 
+    class="w-80 sm:w-96 max-w-xl flex flex-col items-center 
+    justify-center gap-2 sm:gap-4 p-4 shadow-lg shadow-zinc-400">
+    <img src="../../../assets/inchurch-logo.svg">
+    <h2 class="text-4xl text-text_dark font-bold mb-7">Login</h2>
+    <div class= "flex flex-col gap-4">      
+      <div class="w-60 sm:w-80">
+        <input 
+          type="email" 
+          placeholder="Digite seu e-mail..." 
+          formControlName="email" 
+          class="w-full p-2
             rounded-lg outline-none
           bg-gray-50 focus:bg-white" 
-      />
-
-      <input type="password" 
-        placeholder="*******" 
-        formControlName="password"
-        class="w-full p-2 rounded-lg outline-none
-         bg-gray-50 focus:bg-white" 
-      />
-
-      <div class="w-full flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <input type="checkbox">
-          <label class="text-black">gravar senha?</label>
-        </div>
-        <a href="#" 
-          class="text-primary hover:text-primary 
-            hover:opacity-75 duration-200">
-            Esqueceu a senha?
-          </a>
+          />
       </div>
-
-      <button
-        class="w-full 
-            rounded-lg p-2
-            text-white font-medium 
-            bg-primary hover:bg-primary_light 
-            duration-200 
-            disabled:bg-gray-500"
+      <div 
+        *ngIf="loginForm.get('email')?.hasError('required') 
+        && loginForm.get('email')?.touched"
+        class="text-error">
+        Campo Obrigatório
+      </div>
+      <div *ngIf="loginForm.get('email')?.hasError('email')  
+        && loginForm.get('email')?.dirty"
+        class="text-error">
+        Formato inválido
+      </div>
+      <div class="w-60 sm:w-80">
+        <input 
+          type="password" 
+          placeholder="*******" 
+          formControlName="password" 
+          class="w-full p-2 rounded-lg outline-none
+            bg-gray-50 focus:bg-white" 
+        />
+      </div>
+      <div 
+        *ngIf="loginForm.get('password')?.hasError('required') 
+        && loginForm.get('password')?.touched"
+        class="text-error">
+        Campo Obrigatório
+      </div>
+    </div>
+    <div class="w-full flex justify-center ">
+      <button 
+        class="w-56 sm:w-80 
+        rounded-lg p-2
+        text-white font-medium 
+        bg-primary hover:bg-primary_light 
+        duration-200 
+        disabled:bg-gray-500" 
         type="submit"
-        (click)="makeLogin()"      
-        >
+        [disabled]="loginForm.invalid" 
+        (click)="makeLogin()">
         Entrar
       </button>
-    </form>
-  </section>
-
-</main>
+    </div>
+  </form>
+</div>

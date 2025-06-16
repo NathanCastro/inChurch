@@ -9,7 +9,8 @@ module.exports = {
         primary_light: 'var(--color-primary-light)',
         primary_dark: 'var(--color-primary)',
         text_dark: 'var(--color-text-dark)',
-        details: 'var(--color-details)'
+        details: 'var(--color-details)',
+        error: 'var(--color-error)'
       }
     },
   },
