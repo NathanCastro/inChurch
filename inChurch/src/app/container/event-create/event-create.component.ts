@@ -72,7 +72,7 @@ export class EventCreateComponent implements OnInit{
       id: [null],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      ticket: ['', Validators.required],
+      status: ['', Validators.required],
       image: [null, Validators.required],
       publishedDate: [null]
     });

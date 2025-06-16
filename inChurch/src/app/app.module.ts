@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,7 +23,8 @@ import { LayoutMainComponent } from './layout/layout-main/layout-main.component'
     ComponentsModule,
     ContainerModule,
     SharedModule,
-    RouterModule.forRoot(routes)   
+    RouterModule.forRoot(routes),
+    HttpClientModule  
   ],
   providers: [],
   bootstrap: [AppComponent]

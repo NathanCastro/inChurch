@@ -2,10 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
 import { ModalDeleteComponent } from 'src/app/@shared/modals/modal-delete/modal-delete.component';
 import { columnEvents } from 'src/app/constants/column-events';
 import { Events } from 'src/app/models/events';
+import { EventDataService } from 'src/app/services/event-data.service';
 import { EventDetailComponent } from '../event-detail/event-detail.component';
 import { EventEditComponent } from '../event-edit/event-edit.component';
 
@@ -17,17 +19,25 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
 export class TableListComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  public events: Events[] = [];
+  public events: Events[];
+  public events$: Observable<Events[]>;
 
   dataSource = new MatTableDataSource<Events>();
   displayedColumns = columnEvents;  
   
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private serviceEventData: EventDataService
   ){}
-
+  
   ngOnInit(): void{
-    
+    this.serviceEventData.list().subscribe( item =>{
+      this.dataSource.data = item
+    });
+  }
+
+  ngOnDestroy(){
+     
   }
 
   // ngAfterViewInit(){

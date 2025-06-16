@@ -72,7 +72,7 @@ export class EventEditComponent implements OnInit{
       id: [''],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      ticket: ['', Validators.required],
+      status: ['', Validators.required],
       image: ['', Validators.required],
       publishedDate: ['']
     });

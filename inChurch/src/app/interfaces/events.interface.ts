@@ -2,6 +2,7 @@ export interface IEvents{
     id: string;
     title: string;
     description: string;
-    image:any;
-    ticket: Boolean;
+    image?:any;
+    status: Boolean;
+    publishedDate: string;
 }

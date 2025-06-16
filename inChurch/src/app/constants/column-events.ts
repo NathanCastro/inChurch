@@ -1,6 +1,6 @@
 export const columnEvents: string [] = [
     'events',
-    'tickets',
-    'published',
+    'status',
+    'publishedDate',
     'action'
 ]

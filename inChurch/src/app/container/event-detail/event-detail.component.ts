@@ -37,7 +37,7 @@ export class EventDetailComponent {
       id: [null],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      ticket: ['', Validators.required],
+      status: ['', Validators.required],
       image: [null, Validators.required],
       publishedDate: [null]
     });
@@ -49,8 +49,7 @@ export class EventDetailComponent {
     this.form.get('id')?.setValue(this.data.id);
     this.form.get('title')?.setValue(this.data.name);
     this.form.get('description')?.setValue(this.data.description);
-    this.form.get('ticket')?.setValue(this.data.ticket);
-    this.form.get('street')?.setValue(this.data.street);
+    this.form.get('status')?.setValue(this.data.status);
     this.form.get('image')?.setValue(this.data.image);
     this.form.get('publishedDate')?.setValue(this.data.publishedDate);
   }

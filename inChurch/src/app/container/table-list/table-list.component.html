@@ -1,42 +1,43 @@
 <div  class="flex flex-col flex-wrap contentList">        
     <div class="mat-elevation-z8 tableList flex-wrap">
         <table mat-table [dataSource]="dataSource"> 
+            <!-- <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let row"> {{ row.image }} </td>
+            </ng-container> -->
             <ng-container matColumnDef="events">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Evento </th>
                 <td mat-cell *matCellDef="let row"> {{ row.title }} </td>
             </ng-container>
 
-            <ng-container matColumnDef="published">
+            <ng-container matColumnDef="publishedDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Publicado</th>
-                <td mat-cell *matCellDef="let row"> {{ row.published }} </td>
+                <td mat-cell *matCellDef="let row"> {{ row.publishedDate }} </td>
             </ng-container>
 
-            <ng-container matColumnDef="tickets">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ingresso</th>
-                <td mat-cell *matCellDef="let row"> {{ row.ticket }} </td>
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+                <td mat-cell *matCellDef="let row"> {{ row.status }} </td>
             </ng-container>
             
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Ação</th>
                 <td mat-cell *matCellDef="let row">
-                    <button 
-                        mat-mini-fab 
+                    <button                         
                         color="primary"
-                        class="buttonIcon flex"              
+                        class="buttonIcon"              
                         matTooltip="Editar" 
                         (click)="onEditEvent(row)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button 
-                        mat-mini-fab
+                    <button                        
                         color="Basic"
                         class="buttonIcon" 
                         matTooltip="Detalhe" 
                         (click)="openEventDetails(row.id)">         
                         <mat-icon>dehaze </mat-icon>
                     </button>
-                    <button 
-                        mat-mini-fab
+                    <button                        
                         color="warn"
                         class="buttonIcon" 
                         matTooltip="Apagar" 
