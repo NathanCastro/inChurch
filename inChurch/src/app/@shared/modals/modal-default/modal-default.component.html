@@ -1,0 +1,20 @@
+<div class="container-modal flex flex-col h-full">
+  <header class="w-full min-h-24 h-24 items-center
+    text-white bg-primary flex px-5">
+    <h2><ng-content select="[titleModal]"></ng-content></h2>
+      <button
+        mat-dialog-close
+        (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+    
+  </header>
+
+  <div class="content-modal">
+    <ng-content select="[contentModal]"></ng-content>
+  </div>
+
+  <footer *ngIf="showFooter">
+    <ng-content select="[footerModal]"></ng-content>
+  </footer>
+</div>

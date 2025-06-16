@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -16,7 +18,6 @@ import { EventEditComponent } from './event-edit/event-edit.component';
 import { EventFilterComponent } from './event-filter/event-filter.component';
 import { LoginComponent } from './login/login.component';
 import { TableListComponent } from './table-list/table-list.component';
-
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TableListComponent } from './table-list/table-list.component';
     MatCardModule,
     MatTableModule,
     SharedModule,
-    
+    MatDialogModule,
+    MatSelectModule
     
   ],
   exports: [

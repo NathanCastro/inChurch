@@ -1,4 +1,4 @@
-export const columnEvents: string [] =[
+export const columnEvents: string [] = [
     'events',
     'tickets',
     'published',

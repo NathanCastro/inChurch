@@ -11,19 +11,21 @@
             placeholder="Pesquisar..."
         >
         <button
+            *ngIf="currentView === 'list'"
             class="border-2 border-details rounded-md 
                 h-[42px] w-[42px] hover:border-primary_light hover:text-primary_light" 
             matTooltip="Ver tabela e Cards"
-            (click)="changeButton()"
+            (click)="changeView('list')"
         >
             <mat-icon class="my-2">grid_view</mat-icon>
         </button>
         <button
+            *ngIf="currentView === 'cards'"
             class="border-2 border-details 
             rounded-md h-[42px] w-[42px] 
             hover:border-primary_light hover:text-primary_light"
             matTooltip="Ver tabela em lista"
-            (click)="changeButton()"
+            (click)="changeView('cards')"
         >
             <mat-icon class="my-2 ">list</mat-icon>
         </button>
@@ -32,7 +34,8 @@
     <div class="flex">
         <button  class="bg-primary rounded-md 
             hover:bg-primary_light text-white border-2 
-            border-details h-[42px] w-36">
+            border-details h-[42px] w-36"
+            (click)="insertEvent()">
             Cadastrar
         </button> 
     </div>

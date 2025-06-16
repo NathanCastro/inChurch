@@ -1,1 +1,98 @@
-<p>event-create works!</p>
+<app-modal-default>
+  <span titleModal >Inserir Evento</span>
+    <div class="container" contentModal>
+    <form [formGroup]="form">      
+      <div class="mt-2">
+        <label class="text-slate-800 font-medium text-sm block">Nome do Evento</label>
+        <input
+          matInput
+          type="text"
+          formControlName="title"
+          class="block w-full px-3 py-2 
+          border  rounded-md"
+          [ngClass]="{
+            'border-red-500': fieldIsValid(form.get('title')),
+            'border-slate-300': !fieldIsValid(form.get('title'))
+          }"
+        />  
+        <app-field-error [control]="form.get('title')"></app-field-error>           
+      </div> 
+      <div class="mt-2">
+        <label class="text-slate-800 font-medium text-sm block">Descrição</label>
+        <textarea
+          matInput
+          type="text-area"
+          formControlName="description"
+          class="block w-full px-3 py-2 
+          border  rounded-md"
+          [ngClass]="{
+            'border-red-500': fieldIsValid(form.get('description')),
+            'border-slate-300': !fieldIsValid(form.get('description'))
+          }"
+        > </textarea> 
+        <app-field-error [control]="form.get('description')"></app-field-error>           
+      </div>
+      <div class="tickets mt-3">
+        <mat-form-field 
+          class="w-full"
+          appearance="fill">
+          <mat-label>Com Ingresso?</mat-label>
+          <mat-select            
+            [(ngModel)]="selectedValue" 
+            name="option"
+            formControlName="ticket">
+            <mat-option 
+              *ngFor="let option of options" 
+              [value]="option.value">
+              {{option.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <app-field-error [control]="form.get('ticket')"></app-field-error> 
+      </div>
+      <!-- <div class="img mt-7">
+        <label 
+          class="text-slate-800 font-medium text-sm block">
+            Escolha a imagem
+          </label>
+        <input 
+          type="file"
+          (change)="choseImg($event)"
+          formControlName="image"
+        />
+        <app-field-error [control]="form.get('image')"></app-field-error>
+        <div *ngIf="imagePreview" class="mt-4">
+          <label class="text-slate-800 font-medium text-sm block mb-1">
+            Prévia da imagem:
+          </label>
+          <img 
+            [src]="imagePreview" 
+            alt="Prévia da imagem selecionada"
+            class="max-w-[200px] rounded-md border border-gray-300 shadow-sm"
+          />
+        </div>
+      </div> -->
+    </form>
+  </div>
+
+  <div class="flex gap-4 mt-5 justify-end" footerModal>
+    <button 
+      type="submit"
+      mat-stroked-button
+      color="primary"
+      class="text-black font-bold py-2 px-4"
+      (click)="cancel()">
+      Cancelar
+    </button>
+
+    <button 
+      type="submit"
+      class="text-black font-bold py-2 px-4"
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid || !form.dirty"
+      (click)="save()">
+      Salvar
+    </button>        
+  </div>
+</app-modal-default>

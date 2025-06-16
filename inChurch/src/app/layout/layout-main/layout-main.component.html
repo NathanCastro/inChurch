@@ -17,8 +17,8 @@
                 <app-event-filter class="w-full"></app-event-filter>
             </div>
             <div class="content">                
-                <app-cards></app-cards>
-                <!-- <app-table-list></app-table-list> -->
+                <app-cards *ngIf="currentView === 'cards'"></app-cards>
+                <app-table-list *ngIf="currentView === 'list'"></app-table-list>
             </div>
         </main>
         

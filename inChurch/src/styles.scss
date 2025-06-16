@@ -18,3 +18,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed {
   color: var(--color-primary) !important;
 }
+
+.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after{
+  color: var(--color-primary) !important;
+}
+
+.mat-mdc-text-field-wrapper{
+ border: 1px solid;
+ color: var(--color-details);
+ border-radius: 5px;
+}

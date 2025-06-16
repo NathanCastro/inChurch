@@ -27,17 +27,20 @@
         <button 
           mat-button 
           matTooltip="Visualizar"
-          class="hover:bg-primary_light">
+          class="hover:bg-primary_light"
+          (click)="openEventDetails()">
           <mat-icon 
             class="hover:bg-primary_light 
-            text-details">
+            text-details"
+            >
             visibility
           </mat-icon>
         </button>
         <button 
           mat-button
           matTooltip="Editar" 
-          class="hover:bg-primary_light">
+          class="hover:bg-primary_light"
+          (click)="onEditEvent()">
           <mat-icon class="hover:bg-primary_light 
             text-details">
             edit
@@ -46,6 +49,7 @@
         <button 
           mat-button
           matTooltip="Apagar"
+          (click)="confirmDeleteEvent()"
           class="hover:bg-primary_light">
           <mat-icon 
             class="hover:bg-primary_light 

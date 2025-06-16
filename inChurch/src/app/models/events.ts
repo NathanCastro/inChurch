@@ -4,4 +4,5 @@ export class Events{
     description: string;
     image:any;
     ticket: Boolean;
+    publishedDate: string;
 }
