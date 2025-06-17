@@ -37,9 +37,7 @@
           class="w-full"
           appearance="fill">
           <mat-label>Status</mat-label>
-          <mat-select            
-            [(ngModel)]="selectedValue" 
-            name="option"
+          <mat-select  
             formControlName="status">
             <mat-option 
               *ngFor="let option of options" 

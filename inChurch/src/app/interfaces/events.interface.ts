@@ -4,5 +4,5 @@ export interface IEvents{
     description: string;
     image?:any;
     status: Boolean;
-    publishedDate: string;
+    publishedDate: string | Date;
 }

@@ -31,8 +31,12 @@ export class TableListComponent implements OnInit{
   ){}
   
   ngOnInit(): void{
-    this.serviceEventData.list().subscribe( item =>{
-      this.dataSource.data = item
+    this.serviceEventData.eventsUpdatedSubject.subscribe(item => {
+      this.getAllEvents()
+    });
+
+    this.serviceEventData.getAll().subscribe( item =>{
+      this.dataSource.data = item     
     });
   }
 
@@ -45,7 +49,15 @@ export class TableListComponent implements OnInit{
   // }
 
   public onEditEvent(elementEvents: Events){
-    this.dialog.open(EventEditComponent, ModalConfig.MEDIUM)
+    this.serviceEventData.getById(elementEvents.id).subscribe( res =>{
+      if(res){
+        this.dialog.open(EventEditComponent, {
+          ...ModalConfig.MEDIUM,
+          data: elementEvents
+        })
+
+      }
+    })
   }
 
   public openEventDetails(id: string){
@@ -60,6 +72,10 @@ export class TableListComponent implements OnInit{
         subtitle: `Deseja apagar?`
       }
     });    
+  }
+
+  public getAllEvents() {
+    this.serviceEventData.getAll()
   }
 
   onPageChange(event: PageEvent){

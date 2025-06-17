@@ -34,11 +34,10 @@ export class EventDetailComponent {
 
   private setForm(){
     this.form = this.fb.group({
-      id: [null],
       title: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
-      image: [null, Validators.required],
+      // image: [null, Validators.required],
       publishedDate: [null]
     });
     this.form.disable();
@@ -46,11 +45,10 @@ export class EventDetailComponent {
   }
 
   private setValue(){
-    this.form.get('id')?.setValue(this.data.id);
-    this.form.get('title')?.setValue(this.data.name);
+    this.form.get('title')?.setValue(this.data.title);
     this.form.get('description')?.setValue(this.data.description);
     this.form.get('status')?.setValue(this.data.status);
-    this.form.get('image')?.setValue(this.data.image);
+    // this.form.get('image')?.setValue(this.data.image);
     this.form.get('publishedDate')?.setValue(this.data.publishedDate);
   }
 }

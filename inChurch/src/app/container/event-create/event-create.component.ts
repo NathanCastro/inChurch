@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Events } from 'src/app/models/events';
+import { EventDataService } from 'src/app/services/event-data.service';
 import { options } from './../../constants/selector-options';
 
 @Component({
@@ -12,6 +14,8 @@ import { options } from './../../constants/selector-options';
 export class EventCreateComponent implements OnInit{
   imagePreview: string | null = null;
   imageBase64: string | ArrayBuffer | null = null;
+  
+  todayDate: string
 
   public form: FormGroup;
   public events: Events[] = [];
@@ -20,7 +24,9 @@ export class EventCreateComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private dialog: MatDialog    
+    private dialog: MatDialog,
+    private eventDataService: EventDataService,
+    private snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -60,21 +66,31 @@ export class EventCreateComponent implements OnInit{
   // }
 
   public save(){
+    this.todayDate = new Date().toISOString();
+    this.form.get('publishedDate')?.patchValue(this.todayDate);
 
+    const dataEvent = this.form.value;
+
+    if(this.form.valid){
+      this.eventDataService.addEvent(dataEvent).subscribe(()=>
+        this.snackBar.open('Evento criado com sucesso','', {duration: 2000})
+      );
+      this.dialog.closeAll();
+    }    
   }
+
   public cancel(){
     this.dialog.closeAll()
   }
 
   
   private setForm(): void{
-    this.form = this.fb.group({
-      id: [null],
+    this.form = this.fb.group({      
       title: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
-      image: [null, Validators.required],
-      publishedDate: [null]
+      // image: [null, Validators.required],
+      publishedDate: ['']
     });
   }
 }
