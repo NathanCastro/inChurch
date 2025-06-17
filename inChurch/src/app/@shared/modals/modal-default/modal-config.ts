@@ -6,8 +6,9 @@ type ModalConfigParams = {
 
 enum ModalConfigEnum {
   DEFAULT = 'DEFAULT',
-  LARGE = 'LARGE',
-  MEDIUM = 'MEDIUM'
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
+
 }
 
 export const ModalConfig: ModalConfigParams = {
@@ -15,10 +16,10 @@ export const ModalConfig: ModalConfigParams = {
     height: '673px',
   },
 
-  [ModalConfigEnum.LARGE]: {
-    width: '80%',
+  [ModalConfigEnum.SMALL]: {
+    width: '30%',
     maxWidth: '1000px',
-    height: '720px',
+    height: '200px',
   },
   
   [ModalConfigEnum.MEDIUM]: {

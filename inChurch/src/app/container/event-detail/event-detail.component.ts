@@ -24,7 +24,10 @@ export class EventDetailComponent {
   }
 
   public openEventDetails(){
-    this.dialog.open(EventEditComponent, ModalConfig.MEDIUM)
+    this.dialog.open(EventEditComponent, {
+      ...ModalConfig.MEDIUM,
+      data: this.data 
+    });
   }
 
   public cancel(){
@@ -34,6 +37,7 @@ export class EventDetailComponent {
 
   private setForm(){
     this.form = this.fb.group({
+      id: [''],
       title: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
@@ -45,6 +49,7 @@ export class EventDetailComponent {
   }
 
   private setValue(){
+    this.form.get('id')?.setValue(this.data.id);
     this.form.get('title')?.setValue(this.data.title);
     this.form.get('description')?.setValue(this.data.description);
     this.form.get('status')?.setValue(this.data.status);

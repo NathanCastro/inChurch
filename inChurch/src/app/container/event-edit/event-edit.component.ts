@@ -28,7 +28,8 @@ export class EventEditComponent implements OnInit{
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private eventDataService: EventDataService,  
-  ){}
+  ){
+    console.log("✔️ ~ EventEditComponent ~ data:", data)}
 
   ngOnInit(): void {
     this.setForm();
@@ -73,14 +74,14 @@ export class EventEditComponent implements OnInit{
 
     const dataEvent = this.form.value;
     if(this.form.valid && this.form.dirty){
-      this.eventDataService.updateEvent(dataEvent).subscribe(()=>{
-        console.log("✔️ ~ EventEditComponent ~ this.eventDataService.updateEvent ~ dataEvent:", dataEvent)
-        
+      this.eventDataService.updateEvent(dataEvent).subscribe(() => {        
         this.snackBar.open('Evento Editado com sucesso','', {duration: 2000})}
       );
       this.dialog.closeAll();
     }    
   }
+
+  
   public cancel(){
     this.dialog.closeAll()
   }
@@ -88,6 +89,7 @@ export class EventEditComponent implements OnInit{
   
   private setForm(): void{
     this.form = this.fb.group({
+      id:[''],
       title: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
@@ -98,6 +100,7 @@ export class EventEditComponent implements OnInit{
   }
 
   private setValue(){
+    this.form.get('id')?.setValue(this.data.id);
     this.form.get('title')?.setValue(this.data.title);
     this.form.get('description')?.setValue(this.data.description);
     this.form.get('status')?.setValue(this.data.status);

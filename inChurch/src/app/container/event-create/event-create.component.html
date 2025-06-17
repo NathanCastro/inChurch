@@ -41,7 +41,7 @@
             formControlName="status">
             <mat-option 
               *ngFor="let option of options" 
-              [value]="option.value">
+              [value]="option.viewValue">
               {{option.viewValue}}
             </mat-option>
           </mat-select>

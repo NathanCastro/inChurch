@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
@@ -42,7 +43,8 @@ import { TableListComponent } from './table-list/table-list.component';
     MatTableModule,
     SharedModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule
     
   ],
   exports: [

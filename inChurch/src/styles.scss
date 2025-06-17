@@ -24,7 +24,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-mdc-text-field-wrapper{
- border: 1px solid;
- color: var(--color-details);
- border-radius: 5px;
+  border: 1px solid;
+  color: var(--color-details);
+  border-radius: 5px;
 }
+
+
+.mat-mdc-paginator-container{
+  justify-content: center!important;
+}
+

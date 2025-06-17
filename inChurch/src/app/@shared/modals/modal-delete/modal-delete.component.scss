@@ -1,0 +1,38 @@
+:host {
+  .mat-dialog-container {
+    border-radius: 8px !important;
+  }
+
+  .container-modal {
+    min-height: 250px;
+    border-radius: 8px;
+
+    &.no-footer {
+      min-height: 200px;
+    }
+    
+  }
+
+  .content-modal {
+    flex: 1;
+    overflow: auto;
+    padding: 24px 32px;
+  }
+  
+  header {
+    height: 65px;
+    min-height: 65px;
+    padding: 12px 24px;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  footer {
+    height: 60px;
+    min-height: 51px;
+    border-top: 1px solid #e9ecef;
+    
+    >div {
+      margin: 0 32px;
+    }
+  }
+}
