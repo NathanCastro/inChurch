@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
+import { options } from 'src/app/constants/selector-options';
 import { EventEditComponent } from '../event-edit/event-edit.component';
 
 @Component({
@@ -12,6 +13,7 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
 export class EventDetailComponent {
 
   public form: FormGroup;
+  public options = options;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -19,23 +21,23 @@ export class EventDetailComponent {
     private dialog: MatDialog   
   ){}
 
-  ngOnInit(){
+  ngOnInit(): void{
     this.setForm();
   }
 
-  public openEventDetails(){
+  public openEventDetails(): void{
     this.dialog.open(EventEditComponent, {
       ...ModalConfig.MEDIUM,
       data: this.data 
     });
   }
 
-  public cancel(){
+  public cancel(): void{
     this.dialog.closeAll()
   }
 
 
-  private setForm(){
+  private setForm(): void{
     this.form = this.fb.group({
       id: [''],
       title: ['', Validators.required],
@@ -48,7 +50,7 @@ export class EventDetailComponent {
     this.setValue();
   }
 
-  private setValue(){
+  private setValue(): void{
     this.form.get('id')?.setValue(this.data.id);
     this.form.get('title')?.setValue(this.data.title);
     this.form.get('description')?.setValue(this.data.description);

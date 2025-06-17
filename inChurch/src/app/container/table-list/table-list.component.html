@@ -7,7 +7,16 @@
             </ng-container> -->
             <ng-container matColumnDef="events">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Evento </th>
-                <td mat-cell *matCellDef="let row"> {{ row.title }} </td>
+                <td mat-cell *matCellDef="let row"> 
+                    {{ row.title | slice:0:20 }}
+                    {{ row.description.length > 20 ? '...' : '' }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
+                <td mat-cell *matCellDef="let row"> 
+                    {{ row.description | slice:0:20 }}
+                    {{ row.description.length > 20 ? '...' : '' }}</td>
             </ng-container>
 
             <ng-container matColumnDef="publishedDate">
@@ -25,21 +34,21 @@
                 <td mat-cell *matCellDef="let row">
                     <button                         
                         color="primary"
-                        class="buttonIcon"              
+                        class="buttonIcon hover:text-primary"              
                         matTooltip="Editar" 
                         (click)="onEditEvent(row)">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button                        
                         color="Basic"
-                        class="buttonIcon" 
+                        class="buttonIcon hover:text-primary" 
                         matTooltip="Detalhe" 
                         (click)="openEventDetails(row.id)">         
                         <mat-icon>dehaze </mat-icon>
                     </button>
                     <button                        
                         color="warn"
-                        class="buttonIcon" 
+                        class="buttonIcon hover:text-primary" 
                         matTooltip="Apagar" 
                         (click)="confirmDeleteEvent(row.id)">         
                         <mat-icon>delete</mat-icon>

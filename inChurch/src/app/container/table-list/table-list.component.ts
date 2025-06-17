@@ -20,7 +20,6 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
 export class TableListComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  public events: Events[];
   public events$: Observable<Events[]>;
 
   dataSource = new MatTableDataSource<Events>();
@@ -28,28 +27,25 @@ export class TableListComponent implements OnInit{
   
   constructor(
     private dialog: MatDialog,
-    private serviceEventData: EventDataService,
+    private eventDataService: EventDataService,
     private snackBar: MatSnackBar
   ){}
   
   ngOnInit(): void{
     this.getAllEvents();
 
-    this.serviceEventData.eventsUpdatedSubject.subscribe(() => {
+    this.eventDataService.eventsUpdatedSubject.subscribe(() => {
       this.getAllEvents(); 
     });
   }
 
-  ngOnDestroy(){
-     
-  }
 
-  ngAfterViewInit(){
+  ngAfterViewInit(): void{
     this.dataSource.paginator = this.paginator;
   }
 
-  public onEditEvent(elementEvents: Events){
-    this.serviceEventData.getById(elementEvents.id).subscribe( res =>{
+  public onEditEvent(elementEvents: Events): void{
+    this.eventDataService.getById(elementEvents.id).subscribe( res =>{
       if(res){
         this.dialog.open(EventEditComponent, {
           ...ModalConfig.MEDIUM,
@@ -60,8 +56,8 @@ export class TableListComponent implements OnInit{
     })
   }
 
-  public openEventDetails(id: string){
-    this.serviceEventData.getById(id).subscribe(item => {
+  public openEventDetails(id: string):void{
+    this.eventDataService.getById(id).subscribe(item => {
       if(item) {
         this.dialog.open(EventDetailComponent,{
           ...ModalConfig.MEDIUM,
@@ -71,7 +67,7 @@ export class TableListComponent implements OnInit{
     })
   }
 
-  public confirmDeleteEvent(id:string){
+  public confirmDeleteEvent(id:string): void{
     const modal = this.dialog.open(ModalDeleteComponent, {      
       data:{ 
         title: "Deletar",
@@ -80,15 +76,15 @@ export class TableListComponent implements OnInit{
     });
     
     modal.componentInstance.confirmDelete.subscribe(()=> {
-      this.serviceEventData.deleteEvent(id).subscribe(() =>{
+      this.eventDataService.deleteEvent(id).subscribe(() =>{
         this.snackBar.open('Evento apagado com sucesso', '', {duration:2000})
 
       });
     })
   }
 
-  public getAllEvents() {
-    this.serviceEventData.getAll().subscribe(item => {
+  private getAllEvents(): void{
+    this.eventDataService.getAll().subscribe(item => {
       this.dataSource.data = item;
       this.dataSource.paginator = this.paginator;
     });
