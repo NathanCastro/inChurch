@@ -15,16 +15,15 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit{
- @ViewChild(MatPaginator) paginator!: MatPaginator;
+ @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;  
  
-  
-  public events: Events[] = [];
-  public paginatedEvents: Events[] = [];
-
-  pageSize = 8;
-  pageIndex = 0; 
-    
-    
+ pageSize = 10;
+ pageIndex = 0; 
+ itemsPerPageLabel = 'Items por paginas' 
+ 
+ public events: Events[] = [];
+ public paginatedEvents: Events[] = [];
+ 
   constructor(
     private dialog: MatDialog,
     private eventDataService: EventDataService,
@@ -36,7 +35,9 @@ export class CardsComponent implements OnInit{
 
     this.eventDataService.eventsUpdatedSubject.subscribe(() => {
       this.getAllEvents(); 
-    });;
+    });
+
+    this.paginator._intl.itemsPerPageLabel = "Itens por pág"
   }
 
   public onEditEvent(elementEvents: Events): void{
@@ -73,7 +74,6 @@ export class CardsComponent implements OnInit{
     modal.componentInstance.confirmDelete.subscribe(()=> {
       this.eventDataService.deleteEvent(id).subscribe(() =>{
         this.snackBar.open('Evento apagado com sucesso', '', {duration:2000})
-
       });
     })
   }

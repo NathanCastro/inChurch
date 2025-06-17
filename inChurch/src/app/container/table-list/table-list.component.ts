@@ -18,7 +18,7 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
   styleUrls: ['./table-list.component.scss']
 })
 export class TableListComponent implements OnInit{
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   public events$: Observable<Events[]>;
 
@@ -37,6 +37,8 @@ export class TableListComponent implements OnInit{
     this.eventDataService.eventsUpdatedSubject.subscribe(() => {
       this.getAllEvents(); 
     });
+
+    this.paginator._intl.itemsPerPageLabel = "Itens por pág"
   }
 
 

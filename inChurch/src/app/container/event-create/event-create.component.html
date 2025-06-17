@@ -41,35 +41,25 @@
             formControlName="status">
             <mat-option 
               *ngFor="let option of options" 
-              [value]="option.viewValue">
+              [value]="option.value">
               {{option.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <app-field-error [control]="form.get('status')"></app-field-error> 
       </div>
-      <!-- <div class="img mt-7">
-        <label 
-          class="text-slate-800 font-medium text-sm block">
-            Escolha a imagem
-          </label>
-        <input 
-          type="file"
-          (change)="choseImg($event)"
-          formControlName="image"
-        />
+      <input 
+        type="file" 
+        (change)="onFileSelected($event)" 
+        accept="image/*" 
+      />
         <app-field-error [control]="form.get('image')"></app-field-error>
-        <div *ngIf="imagePreview" class="mt-4">
-          <label class="text-slate-800 font-medium text-sm block mb-1">
-            Prévia da imagem:
-          </label>
-          <img 
-            [src]="imagePreview" 
-            alt="Prévia da imagem selecionada"
-            class="max-w-[200px] rounded-md border border-gray-300 shadow-sm"
-          />
-        </div>
-      </div> -->
+      <div 
+        *ngIf="imageUrl" 
+        class="w-44 h-44">
+        <h2 class="text-slate-800 font-medium text-sm block mb-1">Imagem</h2>
+        <img [src]="imageUrl" />
+      </div>   
     </form>
   </div>
 

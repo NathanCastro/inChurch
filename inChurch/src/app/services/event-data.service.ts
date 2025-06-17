@@ -24,12 +24,12 @@ export class EventDataService {
     return this.http.get(`${this.API}/${id}`).pipe(take(1))
   }
 
-  addEvent(event: Events): Observable<Events> {
+  public addEvent(event: Events): Observable<Events> {
     return this.http.post<Events>(this.API, event).pipe(
       tap(() => this.eventsUpdatedSubject.next()));
   }
 
-  updateEvent(event: Events): Observable<Events> {
+  public updateEvent(event: Events): Observable<Events> {
     const url = `${this.API}/${event.id}`
     return this.http.put<Events>(url, event).pipe(
     tap(() => this.eventsUpdatedSubject.next()));

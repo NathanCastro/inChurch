@@ -12,8 +12,7 @@ import { options } from './../../constants/selector-options';
   styleUrls: ['./event-create.component.scss']
 })
 export class EventCreateComponent implements OnInit{
-  imagePreview: string | null = null;
-  imageBase64: string | ArrayBuffer | null = null;
+  imageUrl: string | ArrayBuffer | null = null;
   
   todayDate: string
 
@@ -37,33 +36,17 @@ export class EventCreateComponent implements OnInit{
     return !!control && control.invalid && control.touched
   }
 
-  // public choseImg(event: Event): void {
-  //   // const file = (event.target as HTMLInputElement).files?.[0];
-
-  //   // if (file) {
-  //   //   this.form.patchValue({ image: file });
-  //   //   this.form.get('image')?.updateValueAndValidity();
-
-  //   //   const reader = new FileReader();
-  //   //   reader.onload = () => {
-  //   //     this.imagePreview = reader.result;
-  //   //   };
-  //   //   reader.readAsDataURL(file);
-  //   // }
-  //   const file = (event.target as HTMLInputElement).files?.[0];
-  //   if (file) {
-  //     this.form.patchValue({ image: file });
-  //     this.form.get("image")?.updateValueAndValidity();
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       this.imagePreview = reader.result as string;
-  //       console.log("Imagem transformada em Base64:", this.imagePreview);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   } else {
-  //     this.form.get("image")?.setErrors({ required: true });
-  //   }
-  // }
+  public onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+        this.form.get('image')?.setValue(reader.result); 
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   public save(){
     this.todayDate = new Date().toISOString();
@@ -89,7 +72,7 @@ export class EventCreateComponent implements OnInit{
       title: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
-      // image: [null, Validators.required],
+      image: [null, Validators.required],
       publishedDate: ['']
     });
   }

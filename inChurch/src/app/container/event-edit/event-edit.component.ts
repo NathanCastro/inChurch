@@ -12,9 +12,7 @@ import { EventDataService } from 'src/app/services/event-data.service';
   styleUrls: ['./event-edit.component.scss']
 })
 export class EventEditComponent implements OnInit{
-  
-  imagePreview: string | null = null;
-  imageBase64: string | ArrayBuffer | null = null;
+  imageUrl: string | ArrayBuffer | null = null;
   todayDate: string
 
   public form: FormGroup;
@@ -28,45 +26,28 @@ export class EventEditComponent implements OnInit{
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private eventDataService: EventDataService,  
-  ){
-    console.log("✔️ ~ EventEditComponent ~ data:", data)}
+  ){}
 
   ngOnInit(): void {
     this.setForm();
-
   }
 
   public fieldIsValid(control: AbstractControl  | null): boolean{
     return !!control && control.invalid && control.touched
   }
 
-  // public choseImg(event: Event): void {
-  //   // const file = (event.target as HTMLInputElement).files?.[0];
-
-  //   // if (file) {
-  //   //   this.form.patchValue({ image: file });
-  //   //   this.form.get('image')?.updateValueAndValidity();
-
-  //   //   const reader = new FileReader();
-  //   //   reader.onload = () => {
-  //   //     this.imagePreview = reader.result;
-  //   //   };
-  //   //   reader.readAsDataURL(file);
-  //   // }
-  //   const file = (event.target as HTMLInputElement).files?.[0];
-  //   if (file) {
-  //     this.form.patchValue({ image: file });
-  //     this.form.get("image")?.updateValueAndValidity();
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       this.imagePreview = reader.result as string;
-  //       console.log("Imagem transformada em Base64:", this.imagePreview);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   } else {
-  //     this.form.get("image")?.setErrors({ required: true });
-  //   }
-  // }
+  public onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+        this.form.get('image')?.setValue(reader.result); 
+        this.form.get('image')?.markAsDirty();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   public save(){
     this.todayDate = new Date().toISOString();
@@ -74,7 +55,8 @@ export class EventEditComponent implements OnInit{
 
     const dataEvent = this.form.value;
     if(this.form.valid && this.form.dirty){
-      this.eventDataService.updateEvent(dataEvent).subscribe(() => {        
+      this.eventDataService.updateEvent(dataEvent).subscribe(() => {  
+         
         this.snackBar.open('Evento Editado com sucesso','', {duration: 2000})}
       );
       this.dialog.closeAll();
@@ -93,7 +75,7 @@ export class EventEditComponent implements OnInit{
       title: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
-      // image: ['', Validators.required],
+      image: ['', Validators.required],
       publishedDate: ['']
     });
     this.setValue();
@@ -104,7 +86,8 @@ export class EventEditComponent implements OnInit{
     this.form.get('title')?.setValue(this.data.title);
     this.form.get('description')?.setValue(this.data.description);
     this.form.get('status')?.setValue(this.data.status);
-    // this.form.get('image')?.setValue(this.data.image);
+    this.form.get('image')?.setValue(this.data.image);
     this.form.get('publishedDate')?.setValue(this.data.publishedDate);
+    this.imageUrl = this.data.image;
   }
 }

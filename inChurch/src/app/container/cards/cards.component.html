@@ -5,10 +5,14 @@
     *ngFor="let event of paginatedEvents" 
     class="flex flex-col">
     <mat-card class="example-card overflow-hidden">
-      <img mat-card-image 
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg" 
-        alt="foto do evento" />
-      
+      <div class="w-full h-52 overflow-hidden">
+        <img 
+          mat-card-image
+          [src]="event.image" 
+          alt="foto do evento"
+          class="w-full h-full object-cover"
+        />
+      </div>
       <div 
         class="relative">
         <p 

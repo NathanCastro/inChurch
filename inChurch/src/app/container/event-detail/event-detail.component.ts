@@ -11,7 +11,7 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
   styleUrls: ['./event-detail.component.scss']
 })
 export class EventDetailComponent {
-
+  imageUrl: string | ArrayBuffer | null = null;
   public form: FormGroup;
   public options = options;
 
@@ -19,13 +19,13 @@ export class EventDetailComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private dialog: MatDialog   
-  ){}
+  ){ }
 
   ngOnInit(): void{
     this.setForm();
   }
 
-  public openEventDetails(): void{
+  public openEventEdit(): void{
     this.dialog.open(EventEditComponent, {
       ...ModalConfig.MEDIUM,
       data: this.data 
@@ -42,8 +42,8 @@ export class EventDetailComponent {
       id: [''],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      status: ['', Validators.required],
-      // image: [null, Validators.required],
+      status: [null, Validators.required],
+      image: [null, Validators.required],
       publishedDate: [null]
     });
     this.form.disable();
@@ -55,7 +55,8 @@ export class EventDetailComponent {
     this.form.get('title')?.setValue(this.data.title);
     this.form.get('description')?.setValue(this.data.description);
     this.form.get('status')?.setValue(this.data.status);
-    // this.form.get('image')?.setValue(this.data.image);
+    this.form.get('image')?.setValue(this.data.image);
     this.form.get('publishedDate')?.setValue(this.data.publishedDate);
+    this.imageUrl = this.data.image;
   }
 }
