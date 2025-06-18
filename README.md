@@ -41,6 +41,7 @@ npm install
 
 ```
 ## 📦 Rodar a aplicação
+
 Para rodar a API Fake entre na pasta do seu projeto
 Abra um terminal especifico e digite:
 
@@ -58,6 +59,7 @@ ng s
 ```
 
 ## Página de login
+login
 ```
 admin@admin.com.br
 ```
@@ -66,7 +68,10 @@ senha
 ```
 13579
 ```
-
+## Rodar Testes Unitários
+```
+npm test
+``` 
 ## 🛠️ Funcionalidades
 
   * Criado tela de login simulando rota autenticada e rota para autenticação
@@ -82,34 +87,55 @@ senha
   * Validações criadas para a tela de login e formulário dentro das modais
   * Logout do sistemas com o botão no canto superio direito
   * Paginação criada tanto na página de Cards quanto na Lista
-  * Teste unitários feitos em jest
+  * Teste unitários
   
   
 ## Conclusão
 
-#Login e #Logout
+# Login e # Logout
 
 ![login](https://github.com/user-attachments/assets/8c9355c1-ad89-44cc-81d1-3186291d23dd)
 
 
-#Layout
-Cards
+# Layout
+* Cards
 ![image](https://github.com/user-attachments/assets/c6076876-537d-4bd0-97b8-9d6ddd252cbf)
-Mobile
+* Mobile
 
 ![image](https://github.com/user-attachments/assets/c60bb58b-9cc0-4b94-8ffb-a14e9e7fd895)
 
-Lista
+* Lista
 ![image](https://github.com/user-attachments/assets/9569a312-0033-4466-ae8d-026ac0d3de7b)
-Mobile
+
+* Mobile
 
 ![image](https://github.com/user-attachments/assets/4ee0aae9-80b9-44f4-90ea-ec9f003831f7)
 
-#Modal Cadastro, Editar, Visualizar Apagar
+# Modal Cadastro, Editar, Visualizar Apagar
 ![image](https://github.com/user-attachments/assets/dbe4f6a7-12a0-4aec-98f9-438a952c4ff2)
 ![image](https://github.com/user-attachments/assets/b63815ea-89d1-49bc-8cab-c590c04192cd)
 ![image](https://github.com/user-attachments/assets/5273ad79-788d-46c0-9406-d80591aa9979)
 ![image](https://github.com/user-attachments/assets/5e98852c-f43b-4416-8d83-ad9acb5809d2)
 
 
+## Pesquisas
 
+# Não encontrada
+
+* Cards
+
+![image](https://github.com/user-attachments/assets/2ecd8faf-151a-4f10-a3c7-6c06a8faa9dd)
+
+* Lista
+![image](https://github.com/user-attachments/assets/16036185-6b8a-468e-b845-305f5f6fadad)
+
+
+* Encontrada
+
+* Card
+
+![image](https://github.com/user-attachments/assets/a1b50ce3-68dc-4451-96f7-6ce725420342)
+
+* Lista
+
+![image](https://github.com/user-attachments/assets/81ee25ac-376d-49ed-b700-f28580fb9630)
