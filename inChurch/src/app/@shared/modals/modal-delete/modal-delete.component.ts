@@ -31,6 +31,6 @@ export class ModalDeleteComponent implements OnInit{
   }
 
   public onCancel(): void{
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 }
