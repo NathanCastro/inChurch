@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { options } from 'src/app/constants/selector-options';
 import { Events } from 'src/app/models/events';
 import { EventDataService } from 'src/app/services/event-data.service';
@@ -11,7 +12,7 @@ import { EventDataService } from 'src/app/services/event-data.service';
   templateUrl: './event-edit.component.html',
   styleUrls: ['./event-edit.component.scss']
 })
-export class EventEditComponent implements OnInit{
+export class EventEditComponent implements OnInit, OnDestroy{
   imageUrl: string | ArrayBuffer | null = null;
   todayDate: string
 
@@ -19,6 +20,8 @@ export class EventEditComponent implements OnInit{
   public events: Events[] = [];
   public selectedValue: string;  
   public options = options;
+
+  private subscription: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Events,
@@ -30,6 +33,10 @@ export class EventEditComponent implements OnInit{
 
   ngOnInit(): void {
     this.setForm();
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   public fieldIsValid(control: AbstractControl  | null): boolean{
@@ -49,7 +56,7 @@ export class EventEditComponent implements OnInit{
     }
   }
 
-  public save(){
+  public save(): void{
     this.todayDate = new Date().toISOString();
     this.form.get('publishedDate')?.patchValue(this.todayDate);
 
@@ -64,7 +71,7 @@ export class EventEditComponent implements OnInit{
   }
 
   
-  public cancel(){
+  public cancel(): void{
     this.dialog.closeAll()
   }
 
@@ -81,7 +88,7 @@ export class EventEditComponent implements OnInit{
     this.setValue();
   }
 
-  private setValue(){
+  private setValue(): void{
     this.form.get('id')?.setValue(this.data.id);
     this.form.get('title')?.setValue(this.data.title);
     this.form.get('description')?.setValue(this.data.description);

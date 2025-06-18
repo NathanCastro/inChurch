@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 
   sm:grid-cols-2 md:grid-cols-4 
-  xl:grid-cols-5 gap-3 mx-3">
+  xl:grid-cols-5 gap-3 mx-3">  
   <div 
     *ngFor="let event of paginatedEvents" 
     class="flex flex-col">
@@ -79,6 +79,10 @@
       </mat-card-actions>
     </mat-card>
   </div>  
+</div>
+<div *ngIf="filterEvents.length === 0" 
+  class="text-center text-black mt-6">
+    <p class="font-bold">Nenhum evento encontrado.</p>
 </div>
 <div class="paginator mt-8">
   <mat-paginator

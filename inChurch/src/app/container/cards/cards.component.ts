@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
 import { ModalDeleteComponent } from 'src/app/@shared/modals/modal-delete/modal-delete.component';
 import { SearchService } from 'src/app/@shared/services/search.service';
@@ -15,7 +16,7 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss']
 })
-export class CardsComponent implements OnInit{
+export class CardsComponent implements OnInit, OnDestroy{
  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;  
  
   pageSize: number = 10;
@@ -25,7 +26,9 @@ export class CardsComponent implements OnInit{
 
   public events: Events[] = [];
   public paginatedEvents: Events[] = [];
- 
+
+  private subscriptions = new Subscription();
+  
   constructor(
     private dialog: MatDialog,
     private eventDataService: EventDataService,
@@ -36,15 +39,19 @@ export class CardsComponent implements OnInit{
   ngOnInit(): void{
     this.getAllEvents();
 
-    this.eventDataService.eventsUpdatedSubject.subscribe(() => {
+    this.subscriptions.add(this.eventDataService.eventsUpdatedSubject.subscribe(() => {
       this.getAllEvents(); 
-    });
+    }));
 
     this.paginator._intl.itemsPerPageLabel = "Itens por pág";
   }
 
+  ngOnDestroy(): void{
+    this.subscriptions.unsubscribe();
+  }
+
   public onEditEvent(elementEvents: Events): void{
-    this.eventDataService.getById(elementEvents.id).subscribe( res =>{
+    this.subscriptions.add(this.eventDataService.getById(elementEvents.id).subscribe( res =>{
       if(res){
         this.dialog.open(EventEditComponent, {
           ...ModalConfig.MEDIUM,
@@ -52,18 +59,18 @@ export class CardsComponent implements OnInit{
         })
 
       }
-    })
+    }))
   }
 
   public openEventDetails(id: string): void{
-    this.eventDataService.getById(id).subscribe(item => {
+    this.subscriptions.add(this.eventDataService.getById(id).subscribe(item => {
       if(item) {
         this.dialog.open(EventDetailComponent,{
           ...ModalConfig.MEDIUM,
           data: item,
         })
       }
-    })
+    }))
   }
 
   public confirmDeleteEvent(id:string): void{
@@ -74,11 +81,11 @@ export class CardsComponent implements OnInit{
       }
     });
     
-    modal.componentInstance.confirmDelete.subscribe(()=> {
+    this.subscriptions.add(modal.componentInstance.confirmDelete.subscribe(()=> {
       this.eventDataService.deleteEvent(id).subscribe(() =>{
         this.snackBar.open('Evento apagado com sucesso', '', {duration:2000})
       });
-    })
+    }))
   }
 
   public onPageChange(event: PageEvent): void {
@@ -88,23 +95,23 @@ export class CardsComponent implements OnInit{
   }
 
   private getAllEvents(): void {
-    this.eventDataService.getAll().subscribe(items => {
+    this.subscriptions.add(this.eventDataService.getAll().subscribe(items => {
       this.filterEvents = this.events = items;
       this.currentPage = 0;
       this.updatePaginatedEvents();
       this.listenToSearchTerm();
-    });
+    }));
   }
 
   private listenToSearchTerm(): void {
-    this.searchService.searchTerm$.subscribe(term => {
+    this.subscriptions.add(this.searchService.searchTerm$.subscribe(term => {
       this.filterEvents = this.events.filter(event =>
       event.title?.toLowerCase().includes(term.toLowerCase()) ||
       event.description?.toLowerCase().includes(term.toLowerCase()));
       
       this.currentPage = 0; 
       this.updatePaginatedEvents();
-    });
+    }));
   }
 
   private updatePaginatedEvents(): void {

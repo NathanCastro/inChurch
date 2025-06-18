@@ -1,4 +1,4 @@
-<div  class="flex flex-col flex-wrap contentList">        
+<div  class="flex flex-col flex-wrap contentList">           
     <div class="mat-elevation-z8 tableList flex-wrap">
         <table mat-table [dataSource]="dataSource"> 
             <ng-container matColumnDef="image">
@@ -68,6 +68,10 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
         
+    </div>
+    <div *ngIf="dataSource.data.length === 0" 
+        class="text-center text-black mt-6">
+        <p class="font-bold">Nenhum evento encontrado.</p>
     </div>
     <div class="paginator mt-8">
         <mat-paginator

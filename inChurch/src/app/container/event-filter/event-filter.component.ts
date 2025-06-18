@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
 import { ModalDeleteComponent } from 'src/app/@shared/modals/modal-delete/modal-delete.component';
 import { SearchService } from 'src/app/@shared/services/search.service';
@@ -12,10 +12,12 @@ import { EventCreateComponent } from '../event-create/event-create.component';
   templateUrl: './event-filter.component.html',
   styleUrls: ['./event-filter.component.scss']
 })
-export class EventFilterComponent {
+export class EventFilterComponent implements OnInit, OnDestroy{
+  
   public currentView: 'cards' | 'list' = 'cards';
   public searchTerm$ = new Subject<string>();  
   
+  private subscription: Subscription;
   
   constructor(
     private viewService: ViewService,
@@ -23,10 +25,14 @@ export class EventFilterComponent {
     private searchService: SearchService,
   ){}
 
-  ngOnInit(){
-    this.viewService.viewMode$.subscribe((view) => {
+  ngOnInit(): void{
+    this.subscription = this.viewService.viewMode$.subscribe((view) => {
       this.currentView = view;
     });
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   public onInputSearch(event: any): void {
@@ -39,11 +45,11 @@ export class EventFilterComponent {
     this.viewService.setViewMode(nextView);
   }
 
-  public insertEvent(){
+  public insertEvent(): void{
     this.dialog.open(EventCreateComponent, ModalConfig.MEDIUM)
   }
 
-  public confirmDeleteEvent(id:string){
+  public confirmDeleteEvent(id:string): void{
     const modal = this.dialog.open(ModalDeleteComponent, {
       disableClose: false,
       data:{ 

@@ -42,5 +42,3 @@ export class EventDataService {
     )
   }
 }
-
-// npx json-server db.json

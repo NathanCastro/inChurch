@@ -11,7 +11,7 @@ export class ModalDefaultComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  close(): void {
+  public close(): void {
     if (this.dialog) {
       this.dialog.closeAll();
     }

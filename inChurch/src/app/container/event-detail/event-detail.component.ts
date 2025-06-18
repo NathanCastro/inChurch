@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
@@ -10,7 +10,7 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
   templateUrl: './event-detail.component.html',
   styleUrls: ['./event-detail.component.scss']
 })
-export class EventDetailComponent {
+export class EventDetailComponent implements OnInit {
   imageUrl: string | ArrayBuffer | null = null;
   public form: FormGroup;
   public options = options;

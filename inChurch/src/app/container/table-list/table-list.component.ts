@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
 import { ModalDeleteComponent } from 'src/app/@shared/modals/modal-delete/modal-delete.component';
 import { SearchService } from 'src/app/@shared/services/search.service';
@@ -18,15 +18,15 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
   templateUrl: './table-list.component.html',
   styleUrls: ['./table-list.component.scss']
 })
-export class TableListComponent implements OnInit{
+export class TableListComponent implements OnInit, OnDestroy{
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
-  public events$: Observable<Events[]>;
-
+  
   dataSource = new MatTableDataSource<Events>();
   displayedColumns = columnEvents;  
   eventosFiltrados: any[] = [];
-
+  
+  public events$: Observable<Events[]>;
+  private subscriptions = new Subscription();
 
   constructor(
     private dialog: MatDialog,
@@ -38,20 +38,23 @@ export class TableListComponent implements OnInit{
   ngOnInit(): void{
     this.getAllEvents();
 
-    this.eventDataService.eventsUpdatedSubject.subscribe(() => {
+    this.subscriptions.add(this.eventDataService.eventsUpdatedSubject.subscribe(() => {
       this.getAllEvents(); 
-    });
+    }));
 
     this.paginator._intl.itemsPerPageLabel = "Itens por pág"
   }
-
 
   ngAfterViewInit(): void{
     this.dataSource.paginator = this.paginator;
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   public onEditEvent(elementEvents: Events): void{
-    this.eventDataService.getById(elementEvents.id).subscribe( res =>{
+    this.subscriptions.add(this.eventDataService.getById(elementEvents.id).subscribe( res =>{
       if(res){
         this.dialog.open(EventEditComponent, {
           ...ModalConfig.MEDIUM,
@@ -59,18 +62,18 @@ export class TableListComponent implements OnInit{
         })
 
       }
-    })
+    }))
   }
 
   public openEventDetails(id: string):void{
-    this.eventDataService.getById(id).subscribe(item => {
+    this.subscriptions.add(this.eventDataService.getById(id).subscribe(item => {
       if(item) {
         this.dialog.open(EventDetailComponent,{
           ...ModalConfig.MEDIUM,
           data: item,
         })
       }
-    })
+    }))
   }
 
   public confirmDeleteEvent(id:string): void{
@@ -81,31 +84,33 @@ export class TableListComponent implements OnInit{
       }
     });
     
-    modal.componentInstance.confirmDelete.subscribe(()=> {
+    this.subscriptions.add(modal.componentInstance.confirmDelete.subscribe(()=> {
       this.eventDataService.deleteEvent(id).subscribe(() =>{
         this.snackBar.open('Evento apagado com sucesso', '', {duration:2000})
 
       });
-    })
+    }))
   }
 
   private getAllEvents(): void{
-    this.eventDataService.getAll().subscribe(item => {
+    this.subscriptions.add(this.eventDataService.getAll().subscribe(item => {
       this.eventosFiltrados = this.dataSource.data = item;
       this.dataSource.paginator = this.paginator;
       this.listenToSearchTerm();
-    });
+      })
+    );
   }
 
   private listenToSearchTerm(): void {
-    this.searchService.searchTerm$.subscribe(term => {
-    const filtered = this.eventosFiltrados.filter(event =>
-      event.title?.toLowerCase().includes(term.toLowerCase()) ||
-      event.description?.toLowerCase().includes(term.toLowerCase()));
+    this.subscriptions.add(this.searchService.searchTerm$.subscribe(term => {
+      const filtered = this.eventosFiltrados.filter(event =>
+        event.title?.toLowerCase().includes(term.toLowerCase()) ||
+        event.description?.toLowerCase().includes(term.toLowerCase()));
 
-      this.dataSource = new MatTableDataSource(filtered);
-      this.dataSource.paginator = this.paginator;
-    });
+        this.dataSource = new MatTableDataSource(filtered);
+        this.dataSource.paginator = this.paginator;
+      })
+    );
   }
 
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { Events } from 'src/app/models/events';
 import { EventDataService } from 'src/app/services/event-data.service';
 import { options } from './../../constants/selector-options';
@@ -11,15 +12,17 @@ import { options } from './../../constants/selector-options';
   templateUrl: './event-create.component.html',
   styleUrls: ['./event-create.component.scss']
 })
-export class EventCreateComponent implements OnInit{
-  imageUrl: string | ArrayBuffer | null = null;
+export class EventCreateComponent implements OnInit, OnDestroy{
   
+  imageUrl: string | ArrayBuffer | null = null;  
   todayDate: string
 
   public form: FormGroup;
   public events: Events[] = [];
   public selectedValue: string;  
   public options = options;
+
+  private subscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +33,10 @@ export class EventCreateComponent implements OnInit{
 
   ngOnInit(): void {
     this.setForm();
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   public fieldIsValid(control: AbstractControl  | null): boolean{
@@ -48,7 +55,7 @@ export class EventCreateComponent implements OnInit{
     }
   }
 
-  public save(){
+  public save(): void{
     this.todayDate = new Date().toISOString();
     this.form.get('publishedDate')?.patchValue(this.todayDate);
 
@@ -62,7 +69,7 @@ export class EventCreateComponent implements OnInit{
     }    
   }
 
-  public cancel(){
+  public cancel(): void{
     this.dialog.closeAll()
   }
 

@@ -71,54 +71,6 @@
       "description": "Você não está aqui por acaso. Deus tem um plano para sua vida e quer que você o descubra.",
       "status": true,
       "publishedDate": "2020-12-03T07:15:00"
-    },
-    {
-      "id": "10",
-      "image": "https://picsum.photos/200/300?random=10",
-      "title": "Cartas de um Diabo a seu Aprendiz",
-      "description": "Uma sátira inteligente sobre como o inimigo tenta desviar o cristão do caminho da verdade.",
-      "status": false,
-      "publishedDate": "2021-03-22T19:10:00"
-    },
-    {
-      "id": "11",
-      "image": "https://picsum.photos/200/300?random=11",
-      "title": "Deus Está no Controle",
-      "description": "Mesmo quando não entendemos, podemos confiar que Deus está no comando de todas as coisas.",
-      "status": true,
-      "publishedDate": "2023-06-01T10:00:00"
-    },
-    {
-      "id": "12",
-      "image": "https://picsum.photos/200/300?random=12",
-      "title": "O Discípulo Radical",
-      "description": "Ser discípulo de Cristo exige entrega, fé e uma vida moldada pelos valores do Reino.",
-      "status": true,
-      "publishedDate": "2022-10-10T12:25:00"
-    },
-    {
-      "id": "13",
-      "image": "https://picsum.photos/200/300?random=13",
-      "title": "Os Caçadores de Deus",
-      "description": "Há uma geração faminta por mais de Deus — disposta a buscá-lo a qualquer custo.",
-      "status": false,
-      "publishedDate": "2021-01-01T15:50:00"
-    },
-    {
-      "id": "14",
-      "image": "https://picsum.photos/200/300?random=14",
-      "title": "Como Ouvir a Voz de Deus",
-      "description": "Deus fala com seus filhos. Precisamos apenas silenciar o mundo e aprender a escutar.",
-      "status": true,
-      "publishedDate": "2023-08-19T09:35:00"
-    },
-    {
-      "id": "15",
-      "image": "https://picsum.photos/200/300?random=15",
-      "title": "Caçadores de Almas",
-      "description": "Evangelizar é mais do que falar de Jesus — é amar as pessoas com a intensidade que Ele amou.",
-      "status": true,
-      "publishedDate": "2024-01-25T21:00:00"
     }
   ]
 }

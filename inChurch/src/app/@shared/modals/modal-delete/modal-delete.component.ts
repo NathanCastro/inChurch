@@ -17,7 +17,7 @@ export class ModalDeleteComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: any
   ){ }
 
-  ngOnInit(){
+  ngOnInit(): void{
     if (this.data) {
       const { title, subtitle } = this.data;
       this.title = title;
@@ -25,12 +25,12 @@ export class ModalDeleteComponent implements OnInit{
     }
   }
 
-  public onConfirmDelete(){
+  public onConfirmDelete(): void{
     this.confirmDelete.emit();
     this.dialogRef.close();  
   }
 
-  public onCancel(){
+  public onCancel(): void{
     this.dialogRef.close()
   }
 }
