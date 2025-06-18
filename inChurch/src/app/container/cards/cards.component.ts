@@ -21,7 +21,7 @@ export class CardsComponent implements OnInit{
   pageSize: number = 10;
   pageIndex: number = 0;
   currentPage: number = 0;  
-  eventosFiltrados: Events[] = [];
+  filterEvents: Events[] = [];
 
   public events: Events[] = [];
   public paginatedEvents: Events[] = [];
@@ -89,7 +89,7 @@ export class CardsComponent implements OnInit{
 
   private getAllEvents(): void {
     this.eventDataService.getAll().subscribe(items => {
-      this.eventosFiltrados = this.events = items;
+      this.filterEvents = this.events = items;
       this.currentPage = 0;
       this.updatePaginatedEvents();
       this.listenToSearchTerm();
@@ -98,7 +98,7 @@ export class CardsComponent implements OnInit{
 
   private listenToSearchTerm(): void {
     this.searchService.searchTerm$.subscribe(term => {
-      this.eventosFiltrados = this.events.filter(event =>
+      this.filterEvents = this.events.filter(event =>
       event.title?.toLowerCase().includes(term.toLowerCase()) ||
       event.description?.toLowerCase().includes(term.toLowerCase()));
       
@@ -110,6 +110,6 @@ export class CardsComponent implements OnInit{
   private updatePaginatedEvents(): void {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
-    this.paginatedEvents = this.eventosFiltrados.slice(start, end);
+    this.paginatedEvents = this.filterEvents.slice(start, end);
   }
 }
