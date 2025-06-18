@@ -4,6 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
 import { ModalDeleteComponent } from 'src/app/@shared/modals/modal-delete/modal-delete.component';
+import { SearchService } from 'src/app/@shared/services/search.service';
 import { Events } from 'src/app/models/events';
 import { EventDataService } from 'src/app/services/event-data.service';
 import { EventDetailComponent } from '../event-detail/event-detail.component';
@@ -17,17 +18,19 @@ import { EventEditComponent } from '../event-edit/event-edit.component';
 export class CardsComponent implements OnInit{
  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;  
  
- pageSize = 10;
- pageIndex = 0; 
- itemsPerPageLabel = 'Items por paginas' 
- 
- public events: Events[] = [];
- public paginatedEvents: Events[] = [];
+  pageSize: number = 10;
+  pageIndex: number = 0;
+  currentPage: number = 0;  
+  eventosFiltrados: Events[] = [];
+
+  public events: Events[] = [];
+  public paginatedEvents: Events[] = [];
  
   constructor(
     private dialog: MatDialog,
     private eventDataService: EventDataService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private searchService: SearchService,
   ){}
 
   ngOnInit(): void{
@@ -37,7 +40,7 @@ export class CardsComponent implements OnInit{
       this.getAllEvents(); 
     });
 
-    this.paginator._intl.itemsPerPageLabel = "Itens por pág"
+    this.paginator._intl.itemsPerPageLabel = "Itens por pág";
   }
 
   public onEditEvent(elementEvents: Events): void{
@@ -79,21 +82,34 @@ export class CardsComponent implements OnInit{
   }
 
   public onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.pageIndex = event.pageIndex;
     this.updatePaginatedEvents();
   }
 
   private getAllEvents(): void {
     this.eventDataService.getAll().subscribe(items => {
-      this.events = items;
+      this.eventosFiltrados = this.events = items;
+      this.currentPage = 0;
+      this.updatePaginatedEvents();
+      this.listenToSearchTerm();
+    });
+  }
+
+  private listenToSearchTerm(): void {
+    this.searchService.searchTerm$.subscribe(term => {
+      this.eventosFiltrados = this.events.filter(event =>
+      event.title?.toLowerCase().includes(term.toLowerCase()) ||
+      event.description?.toLowerCase().includes(term.toLowerCase()));
+      
+      this.currentPage = 0; 
       this.updatePaginatedEvents();
     });
   }
 
   private updatePaginatedEvents(): void {
-    const startIndex = this.pageIndex * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.paginatedEvents = this.events.slice(startIndex, endIndex);
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedEvents = this.eventosFiltrados.slice(start, end);
   }
 }

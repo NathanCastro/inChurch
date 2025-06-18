@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
 import { ModalDeleteComponent } from 'src/app/@shared/modals/modal-delete/modal-delete.component';
+import { SearchService } from 'src/app/@shared/services/search.service';
 import { columnEvents } from 'src/app/constants/column-events';
 import { Events } from 'src/app/models/events';
 import { EventDataService } from 'src/app/services/event-data.service';
@@ -24,11 +25,14 @@ export class TableListComponent implements OnInit{
 
   dataSource = new MatTableDataSource<Events>();
   displayedColumns = columnEvents;  
-  
+  eventosFiltrados: any[] = [];
+
+
   constructor(
     private dialog: MatDialog,
     private eventDataService: EventDataService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private searchService: SearchService,
   ){}
   
   ngOnInit(): void{
@@ -87,7 +91,19 @@ export class TableListComponent implements OnInit{
 
   private getAllEvents(): void{
     this.eventDataService.getAll().subscribe(item => {
-      this.dataSource.data = item;
+      this.eventosFiltrados = this.dataSource.data = item;
+      this.dataSource.paginator = this.paginator;
+      this.listenToSearchTerm();
+    });
+  }
+
+  private listenToSearchTerm(): void {
+    this.searchService.searchTerm$.subscribe(term => {
+    const filtered = this.eventosFiltrados.filter(event =>
+      event.title?.toLowerCase().includes(term.toLowerCase()) ||
+      event.description?.toLowerCase().includes(term.toLowerCase()));
+
+      this.dataSource = new MatTableDataSource(filtered);
       this.dataSource.paginator = this.paginator;
     });
   }
