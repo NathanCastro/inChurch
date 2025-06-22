@@ -1,47 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Events } from 'src/app/models/events';
-import { EventDataService } from 'src/app/services/event-data.service';
-import { EventEditComponent } from '../event-edit/event-edit.component';
+import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
+import { SearchService } from 'src/app/@shared/services/search.service';
+import { EventCreateComponent } from '../event-create/event-create.component';
 import { EventFilterComponent } from './event-filter.component';
 describe('EventFilterComponent', () => {
   let component: EventFilterComponent;
   let fixture: ComponentFixture<EventFilterComponent>;
-  let mockDialog: jasmine.SpyObj<MatDialog>;  
-  let mockSnackBar: jasmine.SpyObj<MatSnackBar>;
-  let mockEventDataService: jasmine.SpyObj<EventDataService>;
-  let mockDialogRef: jasmine.SpyObj<MatDialogRef<EventEditComponent>>;
+  let mockDialog: jasmine.SpyObj<MatDialog>;
 
-  const mockEvent: Events = {
-    id: '1',
-    title: 'Test Event',
-    description: 'Test Description',
-    status: true,
-    image: 'test-image-url',
-    publishedDate: '2023-01-01'
-  };
-  
   beforeEach(() => {
-    mockDialog = jasmine.createSpyObj('MatDialog', ['closeAll']);
-    mockSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
-    mockEventDataService = jasmine.createSpyObj('EventDataService', ['updateEvent']);
-    mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
+    mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
 
+    const mockSearchService = {
+      setSearchTerm: jasmine.createSpy('setSearchTerm')
+    };
 
     TestBed.configureTestingModule({
       declarations: [ EventFilterComponent ],
-      imports:[MatIconModule, ReactiveFormsModule],
+      imports:[MatIconModule, ReactiveFormsModule, MatButtonModule],
       providers: [
-        FormBuilder,
-        { provide: MatDialog, useValue: mockDialog },
-        { provide: MatSnackBar, useValue: mockSnackBar },
-        { provide: EventDataService, useValue: mockEventDataService },
-        { provide: MAT_DIALOG_DATA, useValue: mockEvent },
-        { provide: MatDialogRef, useValue: mockDialogRef }
+        { provide: SearchService, useValue: mockSearchService },
+        { provide: MatDialog, useValue: mockDialog }
       ],
     })
     .compileComponents();
@@ -54,4 +38,22 @@ describe('EventFilterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set search term when onInputSearch is called', () => {
+    const event = { target: { value: 'Angular' } };
+
+    component.onInputSearch(event);
+
+    expect(component['searchService'].setSearchTerm).toHaveBeenCalledWith('Angular');
+  });  
+  
+
+  it('should open the dialog when insertEvent is called', () => {
+    component['dialog'] = mockDialog;
+
+    component.insertEvent();
+
+    expect(mockDialog.open).toHaveBeenCalledWith(EventCreateComponent, ModalConfig.MEDIUM);
+  });
 });
+

@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { ModalConfig } from 'src/app/@shared/modals/modal-default/modal-config';
-import { ModalDeleteComponent } from 'src/app/@shared/modals/modal-delete/modal-delete.component';
 import { SearchService } from 'src/app/@shared/services/search.service';
 import { ViewService } from 'src/app/@shared/services/view.service';
 import { EventCreateComponent } from '../event-create/event-create.component';
@@ -48,14 +47,5 @@ export class EventFilterComponent implements OnInit, OnDestroy{
   public insertEvent(): void{
     this.dialog.open(EventCreateComponent, ModalConfig.MEDIUM)
   }
-
-  public confirmDeleteEvent(id:string): void{
-    const modal = this.dialog.open(ModalDeleteComponent, {
-      disableClose: false,
-      data:{ 
-        title: "Deletar",
-        subtitle: `Deseja apagar?`
-      }
-    });    
-  }
+  
 }
