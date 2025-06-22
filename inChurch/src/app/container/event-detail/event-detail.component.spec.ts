@@ -5,6 +5,9 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormFieldErrorComponent } from 'src/app/@shared/field-error/field-error.component';
 import { ModalDefaultComponent } from 'src/app/@shared/modals/modal-default/modal-default.component';
 import { EventDetailComponent } from './event-detail.component';
@@ -40,7 +43,10 @@ describe('EventDetailComponent', () => {
         MatFormFieldModule,
         HttpClientTestingModule, 
         ReactiveFormsModule,
-        MatIconModule 
+        MatIconModule,
+        MatSelectModule,
+        MatInputModule,
+        NoopAnimationsModule
       ]
     })
     .compileComponents();

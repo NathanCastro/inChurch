@@ -1,12 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableListComponent } from './table-list.component';
 
 describe('TableListComponent', () => {
@@ -24,11 +26,11 @@ describe('TableListComponent', () => {
     publishedDate: '2023-01-01'
   };
   
-  beforeEach(async () => {
+  beforeEach(() => {
     mockDialog = jasmine.createSpyObj('MatDialog', ['closeAll']);
     mockSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ TableListComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
@@ -41,8 +43,10 @@ describe('TableListComponent', () => {
         HttpClientTestingModule, 
         ReactiveFormsModule,
         MatIconModule,
-        MatPaginatorModule 
+        MatPaginatorModule,
+        BrowserAnimationsModule
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

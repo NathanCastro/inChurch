@@ -22,7 +22,7 @@ export class EventCreateComponent implements OnInit, OnDestroy{
   public selectedValue: string;  
   public options = options;
 
-  private subscription: Subscription;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -62,7 +62,7 @@ export class EventCreateComponent implements OnInit, OnDestroy{
     const dataEvent = this.form.value;
 
     if(this.form.valid){
-      this.eventDataService.addEvent(dataEvent).subscribe(()=>
+      this.subscription = this.eventDataService.addEvent(dataEvent).subscribe(()=>
         this.snackBar.open('Evento criado com sucesso','', {duration: 2000})
       );
       this.dialog.closeAll();

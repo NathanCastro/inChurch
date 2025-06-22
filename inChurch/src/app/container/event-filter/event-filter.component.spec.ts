@@ -25,14 +25,14 @@ describe('EventFilterComponent', () => {
     publishedDate: '2023-01-01'
   };
   
-  beforeEach(async () => {
+  beforeEach(() => {
     mockDialog = jasmine.createSpyObj('MatDialog', ['closeAll']);
     mockSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
     mockEventDataService = jasmine.createSpyObj('EventDataService', ['updateEvent']);
     mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
 
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ EventFilterComponent ],
       imports:[MatIconModule, ReactiveFormsModule],
       providers: [

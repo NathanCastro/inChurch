@@ -21,7 +21,7 @@ export class EventEditComponent implements OnInit, OnDestroy{
   public selectedValue: string;  
   public options = options;
 
-  private subscription: Subscription;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Events,
@@ -62,7 +62,7 @@ export class EventEditComponent implements OnInit, OnDestroy{
 
     const dataEvent = this.form.value;
     if(this.form.valid && this.form.dirty){
-      this.eventDataService.updateEvent(dataEvent).subscribe(() => {  
+      this.subscription = this.eventDataService.updateEvent(dataEvent).subscribe(() => {  
          
         this.snackBar.open('Evento Editado com sucesso','', {duration: 2000})}
       );

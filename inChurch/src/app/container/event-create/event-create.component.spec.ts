@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormFieldErrorComponent } from 'src/app/@shared/field-error/field-error.component';
 import { ModalDefaultComponent } from 'src/app/@shared/modals/modal-default/modal-default.component';
 import { EventCreateComponent } from './event-create.component';
@@ -26,11 +27,11 @@ describe('EventCreateComponent', () => {
     image: 'test-image.jpg',
     publishedDate: '2023-01-01'
   };
-  beforeEach(async () => {
+  beforeEach(() => {
     mockDialog = jasmine.createSpyObj('MatDialog', ['closeAll']);
     mockSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ 
         FormFieldErrorComponent, 
         EventCreateComponent, 
@@ -46,7 +47,8 @@ describe('EventCreateComponent', () => {
         MatFormFieldModule, 
         MatSelectModule,
         MatIconModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BrowserAnimationsModule
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -56,6 +58,7 @@ describe('EventCreateComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  
 
   it('should create', () => {
     expect(component).toBeTruthy();

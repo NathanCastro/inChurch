@@ -25,8 +25,8 @@ describe('LoginComponent', () => {
     navigateByUrl: jasmine.createSpy('navigateByUrl')
   };
   
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       providers: [
         { provide: MatSnackBar, useValue: snackBarMock },

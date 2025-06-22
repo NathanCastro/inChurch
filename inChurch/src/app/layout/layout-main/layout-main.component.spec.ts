@@ -22,21 +22,21 @@ describe('LayoutMainComponent', () => {
   let mockDialog: jasmine.SpyObj<MatDialog>;
     let mockSnackBar: jasmine.SpyObj<MatSnackBar>;
     
-    const mockDialogData = {
-      id: '1',
-      title: 'Test Event',
-      description: 'Test Description',
-      status: true,
-      image: 'test-image.jpg',
-      publishedDate: '2023-01-01'
-    };
+  const mockDialogData = {
+    id: '1',
+    title: 'Test Event',
+    description: 'Test Description',
+    status: true,
+    image: 'test-image.jpg',
+    publishedDate: '2023-01-01'
+  };
     
     
-  beforeEach(async () => {
+  beforeEach(() => {
     mockDialog = jasmine.createSpyObj('MatDialog', ['closeAll']);
     mockSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ 
         LayoutMainComponent,
         HeaderComponent,
